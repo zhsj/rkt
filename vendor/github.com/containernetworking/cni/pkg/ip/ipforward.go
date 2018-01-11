@@ -16,6 +16,7 @@ package ip
 
 import (
 	"io/ioutil"
+	"strings"
 )
 
 func EnableIP4Forward() error {
@@ -27,5 +28,10 @@ func EnableIP6Forward() error {
 }
 
 func echo1(f string) error {
+	if content, err := ioutil.ReadFile(f); err == nil {
+		if strings.TrimSpace(string(content)) == "1" {
+			return nil
+		}
+	}
 	return ioutil.WriteFile(f, []byte("1"), 0644)
 }
