@@ -609,6 +609,7 @@ func writeACI(layer io.ReadSeeker, manifest schema.ImageManifest, curPwl []strin
 	fileMap := make(map[string]struct{})
 	var whiteouts []string
 	convWalker := func(t *tarball.TarFile) error {
+		t.Header.Format = tar.FormatUnknown
 		name := t.Name()
 		if name == "./" {
 			return nil
